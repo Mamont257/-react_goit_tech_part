@@ -7,16 +7,19 @@ export default function UserList() {
 
   useEffect(() => {
     fetchUsers().then(data => setUser(data));
-    // console.log(response);
-    // setUser(response);
   }, []);
-  // console.log(user);
+
   return (
     <ul>
       {user.map(({ id, user, tweets, followers }) => {
         return (
           <li key={id}>
-            <UserCard user={user} tweets={tweets} followers={followers} />
+            <UserCard
+              user={user}
+              tweets={tweets}
+              followers={followers}
+              id={id}
+            />
           </li>
         );
       })}
