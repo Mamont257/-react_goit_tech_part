@@ -1,4 +1,5 @@
-import fetchUsers from 'components/fetchUsers';
+// import fetchUsers from 'components/fetchUsers';
+import { fetchUsers } from 'components/fetchUsers';
 import UserCard from '../UserCard/UserCard';
 import { useEffect, useState } from 'react';
 
@@ -11,14 +12,14 @@ export default function UserList() {
 
   return (
     <ul>
-      {user.map(({ id, user, tweets, followers }) => {
+      {user.map(user => {
         return (
-          <li key={id}>
+          <li key={user.id}>
             <UserCard
               user={user}
-              tweets={tweets}
-              followers={followers}
-              id={id}
+              // tweets={tweets}
+              // followers={followers}
+              // id={id}
             />
           </li>
         );

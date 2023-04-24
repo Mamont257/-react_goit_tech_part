@@ -9,33 +9,66 @@ import {
 } from './UserCard.styled';
 import logo from '../../images/Logo.png';
 import avatar from '../../images/User.png';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { updateFollowers } from 'components/fetchUsers';
 
-export default function UserCard({ user, tweets, followers, id }) {
-  const [isFollowing, setIsFollowing] = useState(false);
-  const [userFollowers, setUserFollowers] = useState(Number(followers));
+export default function UserCard({ user }) {
+  const [isFollowing, setIsFollowing] = useState(
+    JSON.parse(localStorage.getItem(user.id))
+  );
+  // const [userFollowers, setUserFollowers] = useState(Number(user.followers));
 
-  useEffect(() => {
-    const status = localStorage.getItem(id);
-    setIsFollowing(status);
-    // console.log(memory);
-  }, [id]);
+  const [newUser, setNewUser] = useState(user);
+
+  // useEffect(() => {
+  //   if (!isFollowing) {
+  //     console.log('+');
+  //     // setUserFollowers(prevState => prevState + 1);
+  //     // updateFollowers(user.id, user.followers + 1);
+  //     updateFollowers(user.id, { ...user, followers: user.followers + 1 });
+  //   } else {
+  //     console.log('-');
+  //     // setUserFollowers(prevState => prevState - 1);
+  //     updateFollowers(user.id, { ...user, followers: user.followers - 1 });
+  //     // updateFollowers(user.id, user.followers - 1);
+  //   }
+  // }, [isFollowing, user]);
 
   function toggleBtn() {
     setIsFollowing(prevState => !prevState);
+
     if (!isFollowing) {
-      setUserFollowers(prevState => prevState + 1);
+      console.log('+');
+
+      updateFollowers(user.id, {
+        ...user,
+        followers: newUser.followers + 1,
+      }).then(data => {
+        setNewUser(data);
+      });
     } else {
-      setUserFollowers(prevState => prevState - 1);
+      console.log('-');
+
+      setNewUser(
+        updateFollowers(user.id, {
+          ...user,
+          followers: newUser.followers - 1,
+        }).then(data => {
+          setNewUser(data);
+        })
+      );
     }
-    localStorage.setItem(id, JSON.stringify(!isFollowing));
+
+    localStorage.setItem(user.id, JSON.stringify(!isFollowing));
   }
   return (
     <CardContainer>
       <Logo src={logo} alt="Logo" />
+      {/* <Border> */}
       <Avatar src={avatar} alt="User" />
-      <UserTweets> {tweets} Tweets</UserTweets>
-      <UserFollowers>{userFollowers} Followers</UserFollowers>
+      {/* </Border> */}
+      <UserTweets> {user.tweets} Tweets</UserTweets>
+      <UserFollowers>{newUser.followers} Followers</UserFollowers>
       {isFollowing ? (
         <FollowingBtn type="button" onClick={toggleBtn}>
           Following
