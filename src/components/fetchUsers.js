@@ -6,7 +6,6 @@ export async function fetchUsers() {
   try {
     const response = await axios.get('/users');
 
-    //   console.log(response.data);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -15,14 +14,11 @@ export async function fetchUsers() {
 
 export function updateFollowers(id, user) {
   try {
-    // console.log(id, user);
     const response = axios.put(`/users/${id}`, user);
 
-    return response.then(data => {
-      return data.data;
+    return response.then(response => {
+      return response.data;
     });
-
-    // console.log(response);
   } catch (error) {}
 }
 
