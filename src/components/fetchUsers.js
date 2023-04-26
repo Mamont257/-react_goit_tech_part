@@ -19,7 +19,9 @@ export function updateFollowers(id, user) {
     return response.then(response => {
       return response.data;
     });
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 const fetchFunctions = { fetchUsers, updateFollowers };

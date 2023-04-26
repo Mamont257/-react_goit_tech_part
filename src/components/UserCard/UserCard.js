@@ -49,7 +49,9 @@ export default function UserCard({ user }) {
         </AvatarContainer>
       </Border>
       <UserTweets> {user.tweets} Tweets</UserTweets>
-      <UserFollowers>{newUser.followers} Followers</UserFollowers>
+      <UserFollowers>
+        {newUser.followers.toLocaleString('en-US')} Followers
+      </UserFollowers>
       {isFollowing ? (
         <FollowingBtn type="button" onClick={toggleBtn}>
           Following
