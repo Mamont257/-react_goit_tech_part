@@ -11,12 +11,7 @@ export const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/tweets" element={<UserList />} />
-        {/* <Route
-          path="/registered"
-          element={
-            <PublicRoute component={<RegisterView />} redirectTo="/contact" />
-          }
-        /> */}
+        <Route path="*" element={<Home />} />
       </Routes>
     </div>
   );
